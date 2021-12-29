@@ -1,0 +1,223 @@
+void issuebooks(void)  	//function for issuing books
+{
+    int t;		//local variable for switch option
+
+    system("cls");
+    gotoxy(10,3);
+    printf("   ISSUE SECTION ");
+    gotoxy(10,5);
+    printf(" 1. Issue a Book");
+    gotoxy(10,7);
+    printf(" 2. View Issued Book");
+    gotoxy(10,9);
+    printf(" 3. Search Issued Book");
+    gotoxy(10,11);
+    printf(" 4. Remove Issued Book");
+    gotoxy(10,14);
+    printf("Enter a Choice:");
+    switch(getch())
+    {
+	case '1':  //issue book
+	{
+		system("cls");
+		int c=0;
+		char another='y';
+		while(another=='y')		//infinite loop
+		{
+			system("cls");
+			gotoxy(15,4);
+			printf(" Issue Book section ");
+			gotoxy(10,6);
+			printf("Enter the Book Id:");
+			scanf("%d",&t);
+			fp=fopen("Project.dat","rb");
+			fs=fopen("Issue.dat","ab+");
+			if(checkid(t)==0) 		//check weather the book is available in library or not
+			{
+			     gotoxy(10,8);
+			     printf("The book record is available");
+			     gotoxy(10,9);
+			     printf("There are %d unissued books in library ",r.quantity);
+			     gotoxy(10,10);
+			     printf("The name of book is %s",r.name);
+			     gotoxy(10,11);
+			     printf("Enter student name:");
+			     scanf("%s",r.stname);
+			     gotoxy(10,12);
+			     printf("Issued date=%d-%d-%d",r.issued.dd,r.issued.mm,r.issued.yy);	//for current date
+			     gotoxy(10,13);
+			     printf("The BOOK of ID %d is issued",r.id);		
+			     r.duedate.dd=r.issued.dd+RETURNTIME;   		//for return date
+			     r.duedate.mm=r.issued.mm;
+			     r.duedate.yy=r.issued.yy;
+			     if(r.duedate.dd>30)
+			     {
+				 r.duedate.mm+=r.duedate.dd/30;
+				 r.duedate.dd-=30;
+
+			     }
+			     if(r.duedate.mm>12)
+			     {
+				r.duedate.yy+=r.duedate.mm/12;
+				r.duedate.mm-=12;
+
+			     }
+			     gotoxy(10,14);
+			     printf("To be return:%d-%d-%d",r.duedate.dd,r.duedate.mm,r.duedate.yy);
+			     fseek(fs,sizeof(r),SEEK_END);		//end of the file
+			     fwrite(&r,sizeof(r),1,fs);
+			     fclose(fs);
+			     c=1;
+			}
+			if(c==0)
+			{
+			gotoxy(10,11);
+			printf("No record found");
+			}
+			gotoxy(10,15);
+			printf("Issue any more(Y/N):");
+			fflush(stdin);
+			another=getche();
+			fclose(fp);
+		}
+
+		break;
+	}
+	case '2':  	//case shows the issue books list
+	{
+		system("cls");
+		int j=4;
+		gotoxy(2,1);
+		printf("                          Issued book list                               ");
+		gotoxy(2,2);
+		printf("STUDENT NAME    CATEGORY    ID    BOOK NAME    ISSUED DATE    RETURN DATE");
+	       fs=fopen("Issue.dat","rb");
+		while(fread(&r,sizeof(r),1,fs)==1)
+		{
+
+			gotoxy(2,j);
+			printf("%s",r.stname);
+			gotoxy(18,j);
+			printf("%s",r.cat);
+			gotoxy(30,j);
+			printf("%d",r.id);
+			gotoxy(36,j);
+			printf("%s",r.name);
+			gotoxy(51,j);
+			printf("%d-%d-%d",r.issued.dd,r.issued.mm,r.issued.yy );
+			gotoxy(65,j);
+			printf("%d-%d-%d",r.duedate.dd,r.duedate.mm,r.duedate.yy);
+			gotoxy(50,25);
+			//printf("Current date=%d-%d-%d",d.day,d.month,d.year);
+			j++;
+
+		}
+		fclose(fs);
+		gotoxy(1,25);
+		returnfunc();
+	}
+	break;
+	case '3':   //search issued books by id
+	{
+		system("cls");
+		gotoxy(10,6);
+		printf("Enter Book ID:");
+		int p,c=0;
+		char another='y';
+		while(another=='y')
+		{
+
+			scanf("%d",&p);
+			fs=fopen("Issue.dat","rb");
+			while(fread(&r,sizeof(r),1,fs)==1)
+			{
+				if(r.id==p)
+				{
+					issuerecord();
+					gotoxy(10,12);
+					printf("Press any key.......");
+					getch();
+					issuerecord();
+					c=1;
+				}
+
+			}
+			fflush(stdin);
+			fclose(fs);
+			if(c==0)
+			{
+				gotoxy(10,8);
+				printf("No Record Found");
+			}
+			gotoxy(10,13);
+			printf("Try Another Search?(Y/N)");
+			another=getch();
+		}
+	}
+	break;
+	case '4':  	//case remove issued books from list
+	{
+		system("cls");
+		int b;
+		FILE *fg;  	//delete for temporary file is declared
+		char another='y';
+		while(another=='y')
+		{
+			gotoxy(10,5);
+			printf("Enter book id to remove:");
+			scanf("%d",&b);
+			fs=fopen("Issue.dat","rb+");
+			while(fread(&r,sizeof(r),1,fs)==1)
+			{
+				if(r.id==b)
+				{
+					issuerecord();
+					findbook='t';
+				}
+				if(findbook=='t')
+				{
+					gotoxy(10,12);
+					printf("Do You Want to Remove it?(Y/N)");
+					if(getch()=='y')
+					{
+						fg=fopen("record.dat","wb+");
+						rewind(fs);
+						while(fread(&r,sizeof(r),1,fs)==1)
+						{
+							if(r.id!=b)
+							{
+							fseek(fs,0,SEEK_CUR);
+							fwrite(&r,sizeof(r),1,fg);
+							}
+						}
+						fclose(fs);
+						fclose(fg);
+						remove("Issue.dat");
+						rename("record.dat","Issue.dat");
+						gotoxy(10,14);
+						printf("The issued book is removed from list");
+
+				       }
+
+				}
+				if(findbook!='t')
+				{
+					gotoxy(10,15);
+					printf("No Record Found");
+				}
+			}
+			gotoxy(10,16);
+			printf("Delete any more?(Y/N)");
+			another=getch();
+		}
+	}
+	default:
+	gotoxy(10,18);
+	printf("\nWrong Entry!!");
+    getch();
+	issuebooks();
+	break;
+      }
+      gotoxy(1,30);
+      returnfunc();
+}
