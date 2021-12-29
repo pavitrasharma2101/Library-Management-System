@@ -1,0 +1,62 @@
+// function to display main menu
+void mainmenu()
+{
+
+    system("cls");
+	int i; //local variable for switch options
+	gotoxy(20,3);
+	printf(" MAIN MENU ");
+	gotoxy(20,5);
+	printf(" 1. Add Books   ");
+	gotoxy(20,7);
+	printf(" 2. Delete books");
+	gotoxy(20,9);
+	printf(" 3. Search Books");
+	gotoxy(20,11);
+	printf(" 4. Issue Books");
+	gotoxy(20,13);
+	printf(" 5. Book list");
+	gotoxy(20,15);
+	printf(" 6. Edit Book's Record");
+	gotoxy(20,17);
+	printf(" 7. Exit Application");
+	gotoxy(20,18);
+	t();
+	gotoxy(20,19);
+	printf("Enter your choice:");
+	switch(getch())
+	{
+		case '1':
+		addbooks();
+		break;
+	case '2':
+		deletebooks();
+		break;
+		case '3':
+		searchbooks();
+	    break;
+	case '4':
+		issuebooks();
+	    break;
+	    case '5':
+		bookslist();
+		break;
+	    case '6':
+		editbooks();
+		break;
+	    case '7':
+	    {
+		system("cls");
+		delay(3000);
+		exit(0);
+	    }
+	    default:
+		{
+		gotoxy(10,23);
+		printf("\nWrong Entry!!");
+		if(getch())
+		mainmenu();
+		}
+
+    }
+}
