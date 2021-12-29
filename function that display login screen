@@ -1,0 +1,24 @@
+char u[30],p[30];
+void login()		//function that display login screen
+{
+	do{
+	printf("\n\n\n\t\t\t ENTER THE USERNAME AND PASSWORD\n\n\n\n");
+	printf("\n\t\t\tUSERNAME: ");
+	scanf("%s",&u);						//scanf is used to read input such as character, string, numeric data from keyboard.
+	printf("\n\t\t\tPASSWORD: ");
+	scanf("%s",&p);
+	if((strcmp(u,"user")==0) && (strcmp(p,"pass")==0))
+	{
+		printf("\n\n\t\t login successful");
+		printf("\n\n\n\t\t\t\t Press any key for main menu.....");
+		getch();
+		mainmenu();
+	}
+	else
+	{
+		printf("\n\n\t\tInvalid username and password");
+	}
+	
+	}while("number_of_try");
+	
+}
