@@ -1,0 +1,8 @@
+#include <windows.h>		
+#include<stdio.h>            //contains printf,scanf etc       
+#include<conio.h>            //contains delay(),getch(),gotoxy(),etc       
+#include <stdlib.h>			 
+#include<string.h>          //contains strcmp(),strcpy(),Strlen(),etc        
+#include<ctype.h>           //contains toupper(),tolower(),etc        
+#include<dos.h>             //contains dos getdate       
+#include<time.h>
