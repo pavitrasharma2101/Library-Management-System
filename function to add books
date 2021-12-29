@@ -1,0 +1,45 @@
+void addbooks(void)    //function to add books
+{
+	system("cls");
+	int i;		//local variable for switch option 
+	gotoxy(20,5);
+	printf("\tSELECT CATEGOIES");
+	gotoxy(20,7);
+	printf(" 1. Mathematics");
+	gotoxy(20,9);
+	printf(" 2. Psycology");
+	gotoxy(20,11);
+	printf(" 3. Biology");
+	gotoxy(20,13);
+	printf(" 4. Accounting");
+	gotoxy(20,15);
+	printf(" 5. Economics");
+	gotoxy(20,17);
+	printf(" 6. English");
+	gotoxy(20,19);
+	printf(" 7. Main menu");
+	gotoxy(20,21);
+	printf("Enter your choice:");
+	scanf("%d",&s);
+	if(s==7)
+
+	mainmenu() ;
+	system("cls");
+	fp=fopen("Project.dat","ab+");
+	if(getdata()==1)
+	{
+	r.cat=catagories[s-1];				
+	fseek(fp,0,SEEK_END);			//fseek sets the file position of the given offset
+	fwrite(&r,sizeof(r),1,fp);		//size_r this is the unsigned integral type and is the result of the sizeof keyword.
+	fclose(fp);
+	gotoxy(21,14);
+	printf("The record is sucessfully saved");
+	gotoxy(21,15);
+	printf("Save any more?(Y / N):");
+	if(getch()=='n')
+	    mainmenu();
+	else
+	    system("cls");
+	    addbooks();
+	}
+}
