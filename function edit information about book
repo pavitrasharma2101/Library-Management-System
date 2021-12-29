@@ -1,0 +1,119 @@
+void editbooks(void)  //function edit information about book
+{
+	system("cls");
+	int c=0;
+	int d,e;
+	gotoxy(20,4);
+	printf(" Edit Books Section");
+	char another='y';
+	while(another=='y')
+	{
+		system("cls");
+		gotoxy(15,6);
+		printf("Enter Book Id to be edited:");
+		scanf("%d",&d);
+		fp=fopen("Project.dat","rb+");
+		while(fread(&r,sizeof(r),1,fp)==1)
+		{
+			if(checkid(d)==0)
+			{
+				gotoxy(15,7);
+				printf("The book is availble");
+				gotoxy(15,8);
+				printf("The Book ID:%d",r.id);
+				gotoxy(15,9);
+				printf("Enter new name:");scanf("%s",r.name);
+				gotoxy(15,10);
+				printf("Enter new Writer:");scanf("%s",r.Writer);
+				gotoxy(15,11);
+				printf("Enter new quantity:");scanf("%d",&r.quantity);
+				gotoxy(15,12);
+				printf("Enter new amount:");scanf("%f",&r.Amount);
+				gotoxy(15,13);
+				printf("Enter new bookno:");scanf("%d",&r.bookno);
+				gotoxy(15,14);
+				printf("The record is edited");
+				fseek(fp,ftell(fp)-sizeof(r),0);	//ftell returns the current file position of the given stream.
+				fwrite(&r,sizeof(r),1,fp);	
+				fclose(fp);
+				c=1;
+			}
+			if(c==0)
+			{
+				gotoxy(15,9);
+				printf("No record found");
+			}
+		}
+		gotoxy(15,16);
+		printf("Edit another Record?(Y/N)");
+		fflush(stdin);
+		another=getch() ;
+	}
+		returnfunc();
+}
+void returnfunc(void)
+{
+    {
+	printf(" Press ENTER to return to main menu");
+    }
+    r:
+    if(getch()==13) 	//allow only the use of enter
+    mainmenu();
+    else
+    goto r;
+}
+int getdata()
+{
+	int t;
+	gotoxy(20,3);
+	printf("Enter the Information Below");
+	gotoxy(21,5);
+	printf("Category:");
+	gotoxy(31,5);
+	printf("%s",catagories[s-1]);
+	gotoxy(21,6);
+	printf("Book ID:\t");
+	gotoxy(30,6);
+	scanf("%d",&t);
+	if(checkid(t) == 0)
+	{
+		gotoxy(21,13);
+		printf("\nThe book id already exists\n");
+		getch();
+		mainmenu();
+		return 0;
+	}
+	r.id=t;
+	gotoxy(21,7);
+	printf("Book Name:");
+	scanf("%s",r.name);
+	gotoxy(21,8);
+	printf("Writer:");
+	scanf("%s",r.Writer);
+	gotoxy(21,9);
+	printf("Quantity:");
+	scanf("%d",&r.quantity);
+	gotoxy(21,10);
+	printf("Amount:");
+	scanf("%f",&r.Amount);
+	gotoxy(21,11);
+	printf("Book No:");
+	scanf("%d",&r.bookno);
+	return 1;
+}
+int checkid(int t)  	//checks weather the book exist in library or not
+{
+	rewind(fp);
+	while(fread(&r,sizeof(r),1,fp)==1)		//size_r this is the unsigned integral type and is the result of the sizeof keyword.
+	if(r.id==t)
+	return 0;  		//return 0 if book exist
+      return 1; 	//return 1 if book not exist
+}
+int t(void) 	//for adding time
+{
+time_t t;
+time(&t);
+printf("Date and time:%s\n",ctime(&t));
+
+return 0 ;
+}
