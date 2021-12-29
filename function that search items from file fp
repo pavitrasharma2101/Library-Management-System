@@ -1,0 +1,117 @@
+void searchbooks()	    //function that search items from file fp
+{
+    system("cls");
+    int d;
+    gotoxy(20,6);
+    printf("Search Books ");
+    gotoxy(20,10);
+    printf(" 1. Search By ID");
+    gotoxy(20,14);
+    printf(" 2. Search By Name");
+    gotoxy( 15,20);
+    printf("Enter Your Choice");
+    fp=fopen("Project.dat","rb+"); 		//open file in read mode
+    rewind(fp);   		//sets the file position to the beginning of the file of the given stream
+    switch(getch())
+    {
+	  case '1':
+	{
+	    system("cls");
+	    gotoxy(25,4);
+	    printf("Search Books By Id ");
+	    gotoxy(20,5);
+	    printf("Enter the book id:");
+	    scanf("%d",&d);
+	    gotoxy(20,7);
+	    printf("Searching........");
+	    while(fread(&r,sizeof(r),1,fp)==1)
+	    {
+		if(r.id==d)
+		{
+		    delay(2);
+		    gotoxy(20,7);
+		    printf("The Book is available");
+		    gotoxy(20,9);
+		    printf(" ID:%d",r.id);
+		    gotoxy(20,10);
+		    printf(" Name:%s",r.name);
+		    gotoxy(20,11);
+		    printf(" Writer:%s ",r.Writer);
+		    gotoxy(20,12);
+		    printf(" Qantity:%d ",r.quantity);
+		    gotoxy(20,13);
+		    printf(" Amount:Rs.%.2f",r.Amount);
+		    gotoxy(20,14);
+		    printf(" Book No:%d ",r.bookno);
+		    
+		    findbook='t';
+		}
+
+	    }
+	    if(findbook!='t')  		//it checks weather the condition is entered loop or not
+	    {
+	   
+	    gotoxy(22,9);
+		printf("\rNo Record Found");
+	    }
+	    gotoxy(20,17);
+	    printf("Try another search?(Y/N)");
+	    if(getch()=='y')
+	    searchbooks();
+	    else
+	    mainmenu();
+	    break;
+	}
+	case '2':
+	{
+	    char s[15];
+	    system("cls");
+	    gotoxy(25,4);
+	    printf("Search Books By Name ");
+	    gotoxy(20,5);
+	    printf("Enter Book Name:");
+	    scanf("%s",s);
+	    int d=0;
+	    while(fread(&r,sizeof(r),1,fp)==1)
+	    {
+		if(strcmp(r.name,(s))==0) 		//it checks weather r.name is equal to s or not
+		{
+		    gotoxy(20,7);
+		    printf("The Book is available");
+		    gotoxy(20,9);
+		    printf(" ID:%d",r.id);
+		    gotoxy(20,10);
+		    printf(" Name:%s",r.name);
+		    gotoxy(20,11);
+		    printf(" Writer:%s",r.Writer);
+		    gotoxy(20,12);
+		    printf(" Qantity:%d",r.quantity);
+		    gotoxy(20,13);
+		    printf(" Amount:Rs.%.2f",r.Amount);
+		    gotoxy(20,14);
+		    printf(" Book No:%d ",r.bookno);
+		   
+		    d++;
+		}
+
+	    }
+	    if(d==0)
+	    {
+	    
+	    gotoxy(22,9);
+		printf("\rNo Record Found");
+	    }
+	    gotoxy(20,17);
+	    printf("Try another search?(Y/N)");
+	    if(getch()=='y')
+	    searchbooks();
+	    else
+	    mainmenu();
+	    break;
+	}
+	default :
+	getch();
+	searchbooks();
+    }
+    fclose(fp);
+}
