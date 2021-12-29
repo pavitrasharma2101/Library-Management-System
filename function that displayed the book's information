@@ -1,0 +1,10 @@
+void issuerecord()  	//function that displayed the book's information
+{
+		 system("cls");
+		 gotoxy(10,8);
+		 printf("The Book has taken by Mr. %s",r.stname);
+		 gotoxy(10,9);
+		 printf("Issued Date:%d-%d-%d",r.issued.dd,r.issued.mm,r.issued.yy);
+		 gotoxy(10,10);
+		 printf("Returning Date:%d-%d-%d",r.duedate.dd,r.duedate.mm,r.duedate.yy);
+}
