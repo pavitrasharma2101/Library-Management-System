@@ -1,0 +1,72 @@
+//list of global variable
+int s;
+char findbook;
+
+struct meroDate
+{
+    int mm,dd,yy;
+};
+struct books
+{
+    int id;
+    char stname[20];
+    char name[20];
+    char Writer[20];
+    int quantity;
+    float Amount;
+    int bookno;
+    char *cat;
+    struct meroDate issued;
+    struct meroDate duedate;
+};
+struct books r;
+int main()
+
+{
+	welcome();
+      login();
+      getch();
+   return 0;
+
+}
+
+void welcome()	//function to display welcome screen
+{
+	gotoxy(4,6);
+	printf("");		//printf is used to display the output by print the character, string, integer etc. 
+	gotoxy(1,10);
+	printf("mini project");
+	gotoxy(32,12);
+	printf("WELCOME TO LIBRARY MANAGEMENT SYSTEM");
+	gotoxy(32,14);
+	printf("by pavitra sharma");
+	sleep(3);
+	system("cls");
+	getch();		//it is used as a trick to hold the output screen live for a desired period of time by the user
+	login();
+	mainmenu();
+}
+char u[30],p[30];
+void login()		//function that display login screen
+{
+	do{
+	printf("\n\n\n\t\t\t ENTER THE USERNAME AND PASSWORD\n\n\n\n");
+	printf("\n\t\t\tUSERNAME: ");
+	scanf("%s",&u);						//scanf is used to read input such as character, string, numeric data from keyboard.
+	printf("\n\t\t\tPASSWORD: ");
+	scanf("%s",&p);
+	if((strcmp(u,"user")==0) && (strcmp(p,"pass")==0))
+	{
+		printf("\n\n\t\t login successful");
+		printf("\n\n\n\t\t\t\t Press any key for main menu.....");
+		getch();
+		mainmenu();
+	}
+	else
+	{
+		printf("\n\n\t\tInvalid username and password");
+	}
+	
+	}while("number_of_try");
+	
+}
