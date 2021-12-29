@@ -1,0 +1,35 @@
+
+#define RETURNTIME 1 	// contains return date, etc 
+//list of function prototype
+char catagories[][16]={"Mathematics","Psycology","Biology","Accounting","Economics","English"}; 	//global variables
+void returnfunc(void);		//it simply sets the value of hidden variable, a function accepts zero or more parameter and return one variable
+void welcome(void);			//declaration for welcome function
+void login(void);			//declaration for login function
+void mainmenu(void);		//declaration for the menu function
+void addbooks(void);		//declaration for the add function
+void deletebooks(void);		//declaration for the delete function
+void editbooks(void);		//declaration for the edit function
+void searchbooks(void);		//declaration for search function
+void issuebooks(void);		//declaration for issuing function
+void bookslist(void);		//declaration for viewing bok list function
+void exitapplication(void);		//declaration for exiting function
+int  getdata();
+int  checkid(int);
+int t(void);
+
+void issuerecord();			//declaration for issuing record
+
+COORD coord = {0, 0}; 		//function to set coordinates to 0,0
+COORD max_res,cursor_size;
+void gotoxy (int x, int y)		//function that sets the cursor positiion for simply to move the cursor on your monitor screen wherever desired.
+{
+        coord.X = x; coord.Y = y;		//function to input X and Y coordinates 
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+void delay(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();		//shows the processor clock time used since the beginning of an
+											//implementation defined era (normally the beginning of the program).
+    while (goal > clock());
+}
+FILE *fp,*ft,*fs;	//global files that can be accessed from anywhere in program
