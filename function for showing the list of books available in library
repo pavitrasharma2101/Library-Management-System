@@ -1,0 +1,36 @@
+void bookslist(void)  	//function for showing the list of books available in library
+{
+    int i=0,j;
+    system("cls");
+    gotoxy(1,1);
+    printf("                              Book List                                   \n");
+    gotoxy(2,2);
+    printf(" CATEGORY     ID    BOOK NAME     WRITER       QTY     AMOUNT     BOOK NO ");
+    j=4;
+    fp=fopen("Project.dat","rb");
+    while(fread(&r,sizeof(r),1,fp)==1)
+    {
+	gotoxy(3,j);
+	printf("%s",r.cat);
+	gotoxy(16,j);
+	printf("%d",r.id);
+	gotoxy(22,j);
+	printf("%s",r.name);
+	gotoxy(36,j);
+	printf("%s",r.Writer);
+	gotoxy(50,j);
+	printf("%d",r.quantity);
+	gotoxy(57,j);
+	printf("%.2f",r.Amount);
+	gotoxy(69,j);
+	printf("%d",r.bookno);
+	printf("\n\n");
+	j++;
+	i=i+r.quantity;
+      }
+      gotoxy(3,25);
+      printf("Total Books =%d",i);
+      fclose(fp);
+      gotoxy(35,25);
+      returnfunc();
+}
