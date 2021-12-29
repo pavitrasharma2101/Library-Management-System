@@ -1,0 +1,16 @@
+void welcome()	//function to display welcome screen
+{
+	gotoxy(4,6);
+	printf("");		//printf is used to display the output by print the character, string, integer etc. 
+	gotoxy(1,10);
+	printf("mini project");
+	gotoxy(32,12);
+	printf("WELCOME TO LIBRARY MANAGEMENT SYSTEM");
+	gotoxy(32,14);
+	printf("by pavitra sharma");
+	sleep(3);
+	system("cls");
+	getch();		//it is used as a trick to hold the output screen live for a desired period of time by the user
+	login();
+	mainmenu();
+}
